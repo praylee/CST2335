@@ -3,4 +3,9 @@
     <string name="app_name">AndroidLabs</string>
     <string name="hello_message">Ni Hao!</string>
     <string name="Button_Text">这是个按钮</string>
+    <string name="login">登录</string>
+    <string name="login_name">用户名</string>
+    <string name="passwd">密码</string>
+    <string name="login_passwd">请输入密码</string>
+
 </resources>

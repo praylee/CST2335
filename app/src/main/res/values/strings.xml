@@ -2,5 +2,9 @@
     <string name="app_name">AndroidLabs</string>
     <string name="hello_message">Hello World!</string>
     <string name="Button_Text">I\'m a button</string>
+    <string name="login">Login</string>
+    <string name="login_name">login name</string>
+    <string name="passwd">password</string>
+    <string name="login_passwd">your password</string>
 
 </resources>
