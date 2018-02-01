@@ -6,5 +6,12 @@
     <string name="login_name">login name</string>
     <string name="passwd">password</string>
     <string name="login_passwd">your password</string>
-
+    <string name="login_button">LOGIN</string>
+    <string name="radio_button">Radio Button</string>
+    <string name="check_box">Check Box</string>
+    <string name="switch_text">What does this do?</string>
+    <string name="dialog_message">Do you want to exit this Activity?</string>
+    <string name="dialog_title">Exit?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

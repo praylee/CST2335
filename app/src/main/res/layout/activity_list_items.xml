@@ -8,18 +8,23 @@
     tools:context="com.example.lee.androidlabs.ListItemsActivity">
 
     <RadioButton
+        android:text="@string/radio_button"
         android:layout_columnWeight="1"
         android:gravity="fill"/>
     <CheckBox
+        android:text="@string/check_box"
         android:layout_columnWeight="1"
-        android:gravity="fill"/>
+        android:gravity="fill"
+        android:id="@+id/checkBox"/>
     <Switch
-        android:text="What does this do?"
+        android:text="@string/switch_text"
         android:layout_columnWeight="1"
-        android:gravity="fill"/>
+        android:gravity="fill"
+        android:id="@+id/aSwitch"
+        />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_column="1"

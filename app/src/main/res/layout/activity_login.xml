@@ -9,21 +9,25 @@
     <TextView
         android:text="@string/login"
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="wrap_content" />
     <EditText
         android:hint="@string/login_name"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:inputType="textEmailAddress" />
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:id="@+id/editLogin"
+        />
     <TextView
         android:text="@string/passwd"
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="wrap_content" />
     <EditText
         android:hint="@string/login_passwd"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:inputType="textPassword" />
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/editPassword"
+        />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,8 +35,8 @@
         />
     
     <Button
-        android:text="Login"
-        android:id="@+id/button1"
+        android:text="@string/login_button"
+        android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
         
