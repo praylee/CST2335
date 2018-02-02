@@ -23,4 +23,9 @@
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="45dp" />
 
+    <Button
+        android:text="@string/startChat_Button"
+        android:id="@+id/startChat_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

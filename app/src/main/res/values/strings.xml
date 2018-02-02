@@ -14,4 +14,6 @@
     <string name="dialog_title">Exit?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="startChat_Button">Start Chat</string>
+    <string name="send_button">Send</string>
 </resources>
