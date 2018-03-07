@@ -34,8 +34,8 @@ CheckBox checkBox;
                 dispatchTakePictureIntent();
             }
         });
-        setOnCheckedChanged();
         aSwitch = (Switch) (findViewById(R.id.aSwitch));
+        setOnCheckedChanged();
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -82,7 +82,7 @@ CheckBox checkBox;
     }
     protected void setOnCheckedChanged(){
         CharSequence text;
-        aSwitch = (Switch) (findViewById(R.id.aSwitch));
+//        aSwitch = (Switch) (findViewById(R.id.aSwitch));
         int duration;
         if(aSwitch.isChecked()) {
             text="Switch is On";
