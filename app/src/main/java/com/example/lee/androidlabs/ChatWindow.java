@@ -45,7 +45,9 @@ SQLiteDatabase db;
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             chatMessage.add(cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE)));
-            Log.i(this.getClass().getSimpleName(), "SQL MESSAGE:" + cursor.getString( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE) ) );
+            Log.i(this.getClass().getSimpleName(), "Column Count:" + cursor.getColumnCount() );
+            Log.i(this.getClass().getSimpleName(), "Column Name:" + cursor.getColumnName( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE ) ) );
+            Log.i(this.getClass().getSimpleName(), "Column Value:" + cursor.getString( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE) ) );
             cursor.moveToNext();
         }
         cursor.close();
