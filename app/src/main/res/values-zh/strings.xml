@@ -17,4 +17,11 @@
     <string name="cancel">否</string>
     <string name="startChat_Button">开始聊天</string>
     <string name="send_button">发送</string>
+    <string name="start_Weather_Forecast">天气预报</string>
+    <string name="current_Temperature">当前气温:</string>
+    <string name="max_Temperature">最高气温:</string>
+    <string name="min_Temperature">最低气温:</string>
+    <string name="wind_speed">风速:</string>
+    <string name="current_Weather">当前天气:</string>
+
 </resources>

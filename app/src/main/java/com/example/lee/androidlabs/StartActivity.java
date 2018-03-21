@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class StartActivity extends Activity {
     Button button;
     Button button_StartChat;
+    Button button_StartWeatherForecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,16 @@ public class StartActivity extends Activity {
             public void onClick(View view) {
                 Log.i("StartActivity", "User clicked Start Chat");
                 Intent intent = new Intent(StartActivity.this, ChatWindow.class);
+                startActivity(intent);
+            }
+        });
+        button_StartWeatherForecast = findViewById(R.id.start_Weather_Forecast);
+        button_StartWeatherForecast.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Log.i(this.getClass().getSimpleName(), "User Clicked Start Weather Forecast");
+                Intent intent = new Intent(StartActivity.this,WeatherForecast.class);
                 startActivity(intent);
             }
         });

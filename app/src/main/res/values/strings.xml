@@ -16,4 +16,10 @@
     <string name="cancel">Cancel</string>
     <string name="startChat_Button">Start Chat</string>
     <string name="send_button">Send</string>
+    <string name="start_Weather_Forecast">Weather Forecast</string>
+    <string name="current_Temperature">Current Temperature:</string>
+    <string name="max_Temperature">Maximum Temperature:</string>
+    <string name="min_Temperature">Minimum Temperature:</string>
+    <string name="wind_speed">Wind Speed:</string>
+    <string name="current_Weather">Current Weather:</string>
 </resources>
