@@ -66,10 +66,10 @@ public class WeatherForecast extends Activity {
 
         @Override
         protected void onPostExecute(String s) {
-            currentTemperature.setText(currTemperature);
-            maxTemperature.setText(max);
-            minTemperature.setText(min);
-            windSpeed.setText(speed);
+            currentTemperature.setText("Current Temperature: "+currTemperature);
+            maxTemperature.setText("Maximum Temperature: "+max);
+            minTemperature.setText("Minimum Temperature: "+min);
+            windSpeed.setText("Wind Speed: "+speed);
             currentWeather.setImageBitmap(currWeather);
             progressBar.setVisibility(View.INVISIBLE);
         }
