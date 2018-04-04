@@ -1,18 +1,23 @@
 package com.example.lee.androidlabs;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +31,11 @@ EditText inputText;
 Button sendButton;
 ArrayList<String> chatMessage;
 SQLiteDatabase db;
+FrameLayout frame;
+Cursor cursor;
+boolean isTablet;
+ChatAdapter adapter;
+ChatDatabaseHelper chatDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +45,84 @@ SQLiteDatabase db;
         chatView = (ListView)(findViewById(R.id.chatView));
         inputText = (EditText)(findViewById(R.id.input_text));
         sendButton = (Button)(findViewById(R.id.button_send));
-        final ChatDatabaseHelper chatDatabaseHelper = new ChatDatabaseHelper(this);
-        final ChatAdapter adapter = new ChatAdapter(this);
+        frame = (FrameLayout)findViewById(R.id.frame);
+        isTablet = frame!=null;
+
+        chatDatabaseHelper = new ChatDatabaseHelper(this);
+        adapter = new ChatAdapter(this);
         chatView.setAdapter(adapter);
 
-        db = chatDatabaseHelper.getReadableDatabase();
-        Cursor cursor = db.query(false, ChatDatabaseHelper.TABLE_NAME, new String[]{ChatDatabaseHelper.KEY_MESSAGE},
+        db = chatDatabaseHelper.getWritableDatabase();
+        refreshChatList();
+//        cursor.close();
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = inputText.getText().toString();
+                ContentValues cv = new ContentValues();
+                cv.put(ChatDatabaseHelper.KEY_MESSAGE, content);
+                db.insert(ChatDatabaseHelper.TABLE_NAME,"",cv);
+                inputText.setText("");
+                cursor = db.query(false, ChatDatabaseHelper.TABLE_NAME, new String[]{ChatDatabaseHelper.KEY_ID,ChatDatabaseHelper.KEY_MESSAGE},
+                        null,null,null,null,null,null);
+                cursor.moveToPosition(cursor.getCount()-1);
+                chatMessage.add(cursor.getString( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE)));
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        chatView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isTablet",isTablet);
+                bundle.putLong("ID",l);
+                bundle.putString("Content",chatMessage.get(i));
+                if(isTablet){
+                    MessageFragment mf = new MessageFragment();
+                    mf.setArguments(bundle);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.frame, mf);
+                    ft.commit();
+                }else{
+                    Intent intent = new Intent(ChatWindow.this,MessageDetails.class);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent,7);
+                }
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==70){
+            long id = data.getLongExtra("ID",-1);
+            deleteARowOnId(id);
+        }
+    }
+
+    void deleteARowOnId(long id){
+//        chatDatabaseHelper = new ChatDatabaseHelper(this);
+//        SQLiteDatabase dbwrite = chatDatabaseHelper.getWritableDatabase();
+        db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID+"=?", new String[]{String.valueOf(id)});
+        refreshChatList();
+        adapter.notifyDataSetChanged();
+    }
+
+//    void tabletDelete(long id){
+////        chatDatabaseHelper = new ChatDatabaseHelper(this);
+////        SQLiteDatabase dbwrite = chatDatabaseHelper.getWritableDatabase();
+//        String deleteStatement = "DELETE FROM " + ChatDatabaseHelper.TABLE_NAME +" WHERE " + ChatDatabaseHelper.KEY_ID + " = " + id + ";";
+//        db.execSQL(deleteStatement);
+//        refreshChatList();
+//        adapter.notifyDataSetChanged();
+//    }
+
+    private void refreshChatList(){
+        chatMessage.clear();
+        cursor = db.query(false, ChatDatabaseHelper.TABLE_NAME, new String[]{ChatDatabaseHelper.KEY_ID,ChatDatabaseHelper.KEY_MESSAGE},
                 null,null,null,null,null,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -50,27 +132,13 @@ SQLiteDatabase db;
             Log.i(this.getClass().getSimpleName(), "Column Value:" + cursor.getString( cursor.getColumnIndex( ChatDatabaseHelper.KEY_MESSAGE) ) );
             cursor.moveToNext();
         }
-        cursor.close();
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chatMessage.add(inputText.getText().toString());
-                ContentValues cv = new ContentValues();
-                cv.put(ChatDatabaseHelper.KEY_MESSAGE, chatMessage.get(chatMessage.size()-1));
-                db = chatDatabaseHelper.getWritableDatabase();
-                db.insert(ChatDatabaseHelper.TABLE_NAME,"",cv);
-                adapter.notifyDataSetChanged();
-                inputText.setText("");
-            }
-        });
-
     }
 
     private class ChatAdapter extends ArrayAdapter<String>{
         protected ChatAdapter(Context ctx) {
             super(ctx, 0);
         }
+
 
         @Override
         public int getCount(){
@@ -98,7 +166,9 @@ SQLiteDatabase db;
 
         @Override
         public long getItemId(int position) {
-            return position;
+            cursor.moveToPosition(position);
+            return cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ID));
+//            return position;
         }
     }
 
@@ -129,6 +199,7 @@ SQLiteDatabase db;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        cursor.close();
         db.close();
         Log.i(this.getClass().getSimpleName(), "in onDestroy()");
     }

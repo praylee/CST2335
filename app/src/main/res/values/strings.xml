@@ -22,4 +22,5 @@
     <string name="min_Temperature">Minimum Temperature:</string>
     <string name="wind_speed">Wind Speed:</string>
     <string name="current_Weather">Current Weather:</string>
+    <string name="deleteMessageButton">Delete This Message</string>
 </resources>

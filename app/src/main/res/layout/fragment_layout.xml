@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lee.androidlabs.MessageDetails"
+    android:id="@+id/message_fragment_layout">
+
+    <TextView
+        android:id="@+id/idNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        />
+
+    <TextView
+        android:id="@+id/messageContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idNumber"
+        android:gravity="right"/>
+
+    <Button
+        android:text="@string/deleteMessageButton"
+        android:id="@+id/deleteMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
