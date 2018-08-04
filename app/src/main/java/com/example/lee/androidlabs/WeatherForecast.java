@@ -60,7 +60,7 @@ public class WeatherForecast extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(values[0]);
         }
 
